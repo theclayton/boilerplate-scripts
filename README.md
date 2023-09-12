@@ -1,2 +1,2 @@
 # boilerplate-scripts
-Boilerplate scripts
+Boilerplate scripts to help quickly write scripts.

